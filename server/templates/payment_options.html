@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Payment Options</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #eceff1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 28px;
+            color: #EAB308;
+            margin-bottom: 30px;
+        }
+        h2 {
+            font-size: 20px;
+            color: #757575;
+            margin-bottom: 20px;
+        }
+        .payment-methods {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .payment-methods a {
+            text-decoration: none;
+            color: #424242;
+            font-size: 48px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .payment-methods a:hover {
+            transform: scale(1.2);
+            color: #ff7043;
+        }
+        .payment-methods a i {
+            transition: color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pay ₹{{ total_amount }}</h1>
+        <h2>Select Payment Method</h2>
+        <div class="payment-methods">
+            <a href="#">
+                <i class="fa-brands fa-google-pay"></i>
+            </a>
+            <a href="#">
+                <i class="fa-brands fa-paypal"></i>
+            </a>
+            <a href="#">
+                <i class="fa-brands fa-amazon-pay"></i>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
