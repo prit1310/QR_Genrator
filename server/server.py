@@ -11,6 +11,12 @@ CORS(app)
 frontend_folder = os.path.join(os.getcwd(), "..", "client")
 dist_folder = os.path.join(frontend_folder, "dist")
 
+# Determine the environment
+if os.getenv("FLASK_ENV") == "production":
+    base_url = "https://your-domain.com"
+else:
+    base_url = "http://localhost:5000"
+
 # Serve the frontend's index.html
 @app.route("/", defaults={"filename": ""})
 @app.route("/<path:filename>")
@@ -24,8 +30,8 @@ def index(filename):
 def generate_qr():
     total_amount = request.args.get('totalAmount', default='0', type=str)
     
-    # Change URL to point to deployed server instead of localhost
-    url = f"https://qr-genrator.onrender.com/qr-info?totalAmount={total_amount}"
+    # URL that adjusts based on environment
+    url = f"{base_url}/qr-info?totalAmount={total_amount}"
 
     qr = qrcode.QRCode(
         version=1,
@@ -50,4 +56,4 @@ def qr_info():
     return render_template("payment_options.html", total_amount=total_amount)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=(os.getenv("FLASK_ENV") != "production"))
