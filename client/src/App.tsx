@@ -83,7 +83,7 @@ function App() {
             onChange={(e) => setProductName(e.target.value)}
           />
           <input
-            type="number"
+            type="string"
             value={productPrice}
             placeholder="Product Price"
             className="border-2 border-gray-300 rounded-lg p-3 w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition"
