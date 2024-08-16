@@ -1,5 +1,5 @@
-from flask import Flask, send_file, request, jsonify, render_template,send_from_directory  # type: ignore
-from flask_cors import CORS  # type: ignore
+from flask import Flask, send_file, request, jsonify, render_template, send_from_directory
+from flask_cors import CORS
 import qrcode
 import io
 import os
@@ -7,22 +7,25 @@ import os
 app = Flask(__name__, template_folder='templates')
 CORS(app)
 
-# connect fronted build folder
-frontend_folder = os.path.join(os.getcwd(),"..","client")
-dist_folder = os.path.join(frontend_folder,"dist")
+# Path to frontend build folder
+frontend_folder = os.path.join(os.getcwd(), "..", "client")
+dist_folder = os.path.join(frontend_folder, "dist")
 
-# server dist routes
-@app.route("/",defaults={"filename":""})
+# Serve the frontend's index.html
+@app.route("/", defaults={"filename": ""})
 @app.route("/<path:filename>")
 def index(filename):
     if not filename:
         filename = "index.html"
-    return send_from_directory(dist_folder,filename)
+    return send_from_directory(dist_folder, filename)
 
+# QR code generation endpoint
 @app.route("/qrcode")
 def generate_qr():
     total_amount = request.args.get('totalAmount', default='0', type=str)
-    url = f"http://127.0.0.1:5000/qr-info?totalAmount={total_amount}"
+    
+    # Change URL to point to deployed server instead of localhost
+    url = f"https://qr-genrator.onrender.com/qr-info?totalAmount={total_amount}"
 
     qr = qrcode.QRCode(
         version=1,
@@ -40,6 +43,7 @@ def generate_qr():
 
     return send_file(img_io, mimetype='image/png')
 
+# Endpoint to serve payment options template
 @app.route("/qr-info")
 def qr_info():
     total_amount = request.args.get('totalAmount', default='0', type=str)
